@@ -11,7 +11,7 @@ import { persistStore } from 'redux-persist';
 let persistor = persistStore(store);
 
 //backend link
-export const BASE_URL="https://final-chat-frontend.vercel.app"
+export const BASE_URL="https://final-chat-backend.vercel.app"
 
 
 
