@@ -18,7 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 const corsOption={
     origin:'https://final-chat-frontend.vercel.app',
-    credentials:true
+    credentials: true,  // Allow credentials (cookies, HTTP auth)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Specify allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Specify allowed headers
 };
 app.use(cors(corsOption)); 
 
