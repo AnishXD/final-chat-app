@@ -27,14 +27,23 @@ const Login = () => {
       navigate("/");
       console.log(res);
       dispatch(setAuthUser(res.data));
-    } catch (error) {
+  } catch (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
       toast.error(error.response.data.message);
-      console.log(error);
+    } else if (error.request) {
+      // The request was made but no response was received
+      toast.error("Server did not respond. Please try again later.");
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      toast.error("An unexpected error occurred.");
     }
-    setUser({
-      username: "",
-      password: "",
-    });
+    console.log(error);
+  }
+  setUser({
+    username: "",
+    password: "",
+  });
   };
   return (
     <div className="min-w-96 mx-auto">
