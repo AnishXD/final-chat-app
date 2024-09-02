@@ -22,7 +22,7 @@ const Login = () => {
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  timeout: 10000, // 10 seconds
+  timeout: 20000, // 20 seconds
 });
       navigate("/");
       console.log(res);
