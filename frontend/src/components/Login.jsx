@@ -17,12 +17,13 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/user/login`, user, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+     const res = await axios.post(`${BASE_URL}/api/v1/user/login`, user, {
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+  timeout: 10000, // 10 seconds
+});
       navigate("/");
       console.log(res);
       dispatch(setAuthUser(res.data));
