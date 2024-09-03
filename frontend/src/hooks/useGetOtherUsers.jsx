@@ -11,7 +11,7 @@ const useGetOtherUsers = () => {
         const fetchOtherUsers = async () => {
             try {
                 
-                const token = document.cookie;
+                const token = document.cookie.split('; ').find(cookie => cookie.startsWith('token=')).split('=')[1];
                 console.log('Token:', token);
                 axios.defaults.withCredentials = true;
                 
