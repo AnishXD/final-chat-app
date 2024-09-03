@@ -10,6 +10,8 @@ const useGetOtherUsers = () => {
     useEffect(() => {
         const fetchOtherUsers = async () => {
             try {
+                const token = localStorage.getItem('userToken');
+console.log('Token:', token);
                 axios.defaults.withCredentials = true;
                 const res = await axios.get(`${BASE_URL}/api/v1/user`);
                 // store
