@@ -11,7 +11,7 @@ const useGetOtherUsers = () => {
         const fetchOtherUsers = async () => {
             try {
                 
-                const token = localStorage.getItem('token');
+                const token = document.cookie;
                 console.log('Token:', token);
                 axios.defaults.withCredentials = true;
                 
