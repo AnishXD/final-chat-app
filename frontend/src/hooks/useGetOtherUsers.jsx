@@ -11,6 +11,7 @@ const useGetOtherUsers = () => {
         const fetchOtherUsers = async () => {
             try {
                 const tokenCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('token='));
+                console.log(tokenCookie);
                 let token = null;
                 if (tokenCookie) {
                     token = tokenCookie.split('=')[1];
