@@ -10,7 +10,6 @@ const useGetOtherUsers = () => {
     useEffect(() => {
         const fetchOtherUsers = async () => {
             try {
-                
                 const tokenCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('token='));
                 let token = null;
                 if (tokenCookie) {
@@ -24,21 +23,42 @@ const useGetOtherUsers = () => {
                 axios.defaults.withCredentials = true;
                 
                 const res = await axios.get(`${BASE_URL}/api/v1/user`, {
-                  withCredentials: true,
-                     headers: {
-                  "Content-Type": "application/json",
-                }// Ensure cookies are sent with this request
-                         });
-                // store
-                console.log("other users -> ",res);
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                });
+                
+                // Store the retrieved users in Redux
+                console.log("Other users -> ", res);
                 dispatch(setOtherUsers(res.data));
             } catch (error) {
-                console.log(error);
+                if (error.response) {
+                    // The request was made and the server responded with a status code that falls out of the range of 2xx
+                    console.error("Server responded with an error:", {
+                        status: error.response.status,
+                        data: error.response.data,
+                        headers: error.response.headers,
+                    });
+                    console.error("Response data:", error.response.data);
+                    console.error("Response status:", error.response.status);
+                    console.error("Response headers:", error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error("No response received:", {
+                        request: error.request,
+                    });
+                    console.error("Request data:", error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an error
+                    console.error("Error in setting up the request:", error.message);
+                }
+                console.error("Error config:", error.config);
             }
-        }
+        };
+        
         fetchOtherUsers();
-    }, [])
+    }, [dispatch]);
+};
 
-}
-
-export default useGetOtherUsers
+export default useGetOtherUsers;
