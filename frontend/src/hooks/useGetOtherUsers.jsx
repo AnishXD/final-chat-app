@@ -11,7 +11,13 @@ const useGetOtherUsers = () => {
         const fetchOtherUsers = async () => {
             try {
                 
-                const token = document.cookie.split('; ').find(cookie => cookie.startsWith('token=')).split('=')[1];
+                const tokenCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('token='));
+                let token = null;
+                if (tokenCookie) {
+                    token = tokenCookie.split('=')[1];
+                } else {
+                    throw new Error('Token not found');
+                }
                 console.log('Token:', token);
                 axios.defaults.withCredentials = true;
                 
