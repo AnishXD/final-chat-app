@@ -57,18 +57,25 @@ export const login = async (req, res) => {
                 success: false
             })
         };
-        const tokenData = {
+       const tokenData = {
             userId: user._id
         };
-
+        
         const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000}).json({
+        
+        return res.status(200).cookie("token", token, { 
+            maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
+            httpOnly: false,                 // Set to true if you don't need to access the cookie via JavaScript
+            secure: true, // Only send cookie over HTTPS in production
+            sameSite: 'Lax',                 // Set to 'None' and secure=true for cross-site requests
+            path: '/'                        // Makes the cookie accessible across the entire site
+        }).json({
             _id: user._id,
             username: user.username,
             fullName: user.fullName,
             profilePhoto: user.profilePhoto
         });
+
 
     } catch (error) {
         console.log(error);
