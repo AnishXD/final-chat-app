@@ -12,7 +12,7 @@ const useGetOtherUsers = () => {
             try {
                 const tokenCookie = document.cookie.split(';').find(cookie => cookie.startsWith('token='));
                 console.log(tokenCookie);
-                console.log(document.cookie.split(';'));
+                console.log(document.cookie);
                 let token = null;
                 if (tokenCookie) {
                     token = tokenCookie.split('=')[1];
