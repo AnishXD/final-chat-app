@@ -18,10 +18,17 @@ const useGetOtherUsers = () => {
                 } else {
                     throw new Error('Token not found');
                 }
-                console.log('Token:', token);
+                console.log('All Cookies:', document.cookie);
+                console.log('Token Cookie:', tokenCookie);
+                console.log('Extracted Token:', token);
                 axios.defaults.withCredentials = true;
                 
-                const res = await axios.get(`${BASE_URL}/api/v1/user`);
+                const res = await axios.get(`${BASE_URL}/api/v1/user`, {
+                  withCredentials: true,
+                     headers: {
+                  "Content-Type": "application/json",
+                }// Ensure cookies are sent with this request
+                         });
                 // store
                 console.log("other users -> ",res);
                 dispatch(setOtherUsers(res.data));
