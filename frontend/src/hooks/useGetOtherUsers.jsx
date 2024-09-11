@@ -10,9 +10,8 @@ const useGetOtherUsers = () => {
     useEffect(() => {
         const fetchOtherUsers = async () => {
             try {
-                const tokenCookie = document.cookie.split(';').find(cookie => cookie.startsWith('token='));
+                let tokenCookie= document.cookie;
                 console.log(tokenCookie);
-                console.log(document.cookie);
                 let token = null;
                 if (tokenCookie) {
                     token = tokenCookie.split('=')[1];
